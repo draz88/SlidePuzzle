@@ -31,6 +31,7 @@ public class Tile extends ImageButton {
     private int gamesize;
     private int imgId;
     private boolean empty;
+    private int currentPos;
 
     //GET SCREEN-SIZE
     private DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
@@ -63,7 +64,7 @@ public class Tile extends ImageButton {
         this.imgId = imgId;
         this.setImageResource(imgId);
         this.setScaleType(Tile.ScaleType.FIT_CENTER);
-        this.setBackgroundColor(Color.TRANSPARENT);
+        this.setBackgroundColor(Color.RED);
     }
 
     public void setRow(int row) {
@@ -76,6 +77,10 @@ public class Tile extends ImageButton {
 
     public void setEmpty(boolean empty) {
         this.empty = empty;
+    }
+
+    public void setCurrentPos(int currentPos) {
+        this.currentPos = currentPos;
     }
 
     //GETTERS
@@ -94,8 +99,13 @@ public class Tile extends ImageButton {
     public int getTileHeight() {
         return tileHeight;
     }
+
     public boolean getEmpty(){
         return empty;
+    }
+
+    public int getCurrentPos() {
+        return currentPos;
     }
 
     @Override
