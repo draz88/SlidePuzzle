@@ -64,7 +64,7 @@ public class Tile extends ImageButton {
         this.imgId = imgId;
         this.setImageResource(imgId);
         this.setScaleType(Tile.ScaleType.FIT_CENTER);
-        this.setBackgroundColor(Color.RED);
+        this.setBackgroundColor(Color.TRANSPARENT);
     }
 
     public void setRow(int row) {

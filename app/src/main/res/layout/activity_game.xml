@@ -20,7 +20,8 @@
             android:gravity="center_horizontal"
             android:id="@+id/countMoves"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            android:textSize="20dp"/>
         <TextView
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -29,7 +30,8 @@
             android:gravity="center_horizontal"
             android:id="@+id/topScore"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            android:textSize="20dp"/>
 
     </LinearLayout>
 

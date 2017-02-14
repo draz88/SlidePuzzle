@@ -1,7 +1,9 @@
 package se.deltazulu.www.slidepuzzle;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -106,6 +108,7 @@ public class GameBoard extends GridLayout {
                     tile.setVisibility(Tile.INVISIBLE);
                 }
                 grid[i][j] = tile;
+                tile.setCurrentPos(tileNumber);
                 this.addView(tile);
                 tileNumber++;
                 this.counterSize = tile.getTileHeight();
@@ -148,14 +151,32 @@ public class GameBoard extends GridLayout {
             /*moves++;
             numberOfMoves.setText("Moves\n"+moves);*/
             this.game.countMove();
-            checkWinner();
+            if(checkWinner()){
+                AlertDialog.Builder builder = new AlertDialog.Builder(game);
+                builder.setMessage("You completed the game in "+game.getMoves()+" moves");
+                builder.setTitle("You win!");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        game.finish();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                Log.d("win","1");
+            }else{
+                Log.d("win","0");
+            }
         }else{
 
         }
     }
 
-    private boolean checkWinner(){
-        return false;
+    private boolean checkWinner() {
+        if (tiles.equals(correctOrder)) {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     private boolean checkUp(Tile pressedTile){
@@ -223,8 +244,10 @@ public class GameBoard extends GridLayout {
 
         int fromRow = fromTile.getRow();
         int fromCol = fromTile.getCol();
+        int fromPos = fromTile.getCurrentPos();
         int toRow = toTile.getRow();
         int toCol = toTile.getCol();
+        int toPos = toTile.getCurrentPos();
 
         GridLayout.LayoutParams paramsFrom;
         paramsFrom = new GridLayout.LayoutParams();
@@ -251,6 +274,12 @@ public class GameBoard extends GridLayout {
 
         grid[fromRow][fromCol] = toTile;
         grid[toRow][toCol] = fromTile;
+
+        fromTile.setCurrentPos(toPos);
+        toTile.setCurrentPos(fromPos);
+
+        Collections.swap(tiles, fromPos, toPos);
+
     }
 
 }

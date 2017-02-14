@@ -54,4 +54,8 @@ public class Game extends AppCompatActivity {
         this.moves++;
         numberOfMoves.setText("Moves\n"+moves);
     }
+
+    public int getMoves() {
+        return moves;
+    }
 }
