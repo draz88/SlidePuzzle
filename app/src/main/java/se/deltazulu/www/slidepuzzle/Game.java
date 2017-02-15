@@ -1,6 +1,8 @@
 package se.deltazulu.www.slidepuzzle;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
@@ -20,8 +22,11 @@ public class Game extends AppCompatActivity {
     int top;
     TextView numberOfMoves;
     TextView topScore;
-
-
+    int gamesize;
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
+    LinearLayout linear;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +34,13 @@ public class Game extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         //Get GameSize from menu
-        Intent intent = getIntent();
-        int gamesize = intent.getIntExtra(Menu.GAMESIZE, 0);
+        intent = getIntent();
+        gamesize = intent.getIntExtra(Menu.GAMESIZE, 0);
 
-        LinearLayout linear = (LinearLayout) findViewById(R.id.activity_game);
+        linear = (LinearLayout) findViewById(R.id.activity_game);
 
-        SharedPreferences pref = this.getSharedPreferences("se.deltazulu.www.slidepuzzle", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
+        pref = this.getSharedPreferences("se.deltazulu.www.slidepuzzle", Context.MODE_PRIVATE);
+        editor = pref.edit();
 
 
         moves = 0;
@@ -49,11 +54,7 @@ public class Game extends AppCompatActivity {
 
         GameBoard board = new GameBoard(this, gamesize, this);
 
-
-
         linear.addView(board);
-
-        //setContentView(board);
 
     }
 
@@ -64,5 +65,23 @@ public class Game extends AppCompatActivity {
 
     public int getMoves() {
         return moves;
+    }
+
+    public void winner(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("You completed the game in "+this.moves+" moves.");
+        builder.setTitle("You win!");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                finish();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        if(this.top > this.moves) {
+            editor = pref.edit();
+            editor.putInt("top" + this.gamesize, this.moves);
+            editor.commit();
+        }
+        dialog.show();
     }
 }

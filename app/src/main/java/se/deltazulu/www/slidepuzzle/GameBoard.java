@@ -30,10 +30,6 @@ public class GameBoard extends GridLayout {
     private ArrayList<Tile> correctOrder = new ArrayList<Tile>();
     private Tile[][] grid;
     private int counterSize;
-    /*private int moves;
-    private TextView numberOfMoves;
-    private int top;
-    private TextView topScore;*/
     private Game game;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
@@ -117,60 +113,15 @@ public class GameBoard extends GridLayout {
                 this.counterSize = tile.getTileHeight();
             }
         }
-        /*addCounter(counterSize);
-        addTopScore(counterSize);*/
     }
-
-    /*private void addCounter(int size){
-        numberOfMoves = new TextView(this.context);
-        numberOfMoves.setText("Moves\n"+moves);
-        params = new GridLayout.LayoutParams();
-        params.rowSpec = GridLayout.spec(gamezize);
-        params.columnSpec = GridLayout.spec(0);
-        params.height = size;
-        params.width = size;
-        numberOfMoves.setLayoutParams(params);
-        //numberOfMoves.setBackgroundColor(Color.LTGRAY);
-        numberOfMoves.setGravity(Gravity.CENTER);
-        this.addView(numberOfMoves);
-    }
-
-    private void addTopScore(int size){
-        topScore = new TextView(this.context);
-        topScore.setText("Top score\n"+inversions);
-        params = new GridLayout.LayoutParams();
-        params.rowSpec = GridLayout.spec(gamezize);
-        params.columnSpec = GridLayout.spec(gamezize-1);
-        params.height = size;
-        params.width = size;
-        topScore.setLayoutParams(params);
-        //topScore.setBackgroundColor(Color.LTGRAY);
-        topScore.setGravity(Gravity.CENTER);
-        this.addView(topScore);
-    }*/
 
     public void tilePress(Tile pressedTile){
         if(checkUp(pressedTile) || checkDown(pressedTile) || checkLeft(pressedTile) || checkRight(pressedTile)){
-            /*moves++;
-            numberOfMoves.setText("Moves\n"+moves);*/
             this.game.countMove();
             if(checkWinner()){
-                AlertDialog.Builder builder = new AlertDialog.Builder(game);
-                builder.setMessage("You completed the game in "+game.getMoves()+" moves.");
-                builder.setTitle("You win!");
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        game.finish();
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                pref = context.getSharedPreferences("se.deltazulu.www.slidepuzzle", Context.MODE_PRIVATE);
-                editor = pref.edit();
-                editor.putInt("top"+gamezize,game.getMoves());
-                editor.commit();
-                dialog.show();
+                game.winner();
             }else{
-                
+
             }
         }else{
 
