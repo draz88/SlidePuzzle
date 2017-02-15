@@ -1,6 +1,8 @@
 package se.deltazulu.www.slidepuzzle;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ public class Game extends AppCompatActivity {
     TextView topScore;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,8 +34,12 @@ public class Game extends AppCompatActivity {
 
         LinearLayout linear = (LinearLayout) findViewById(R.id.activity_game);
 
+        SharedPreferences pref = this.getSharedPreferences("se.deltazulu.www.slidepuzzle", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+
+
         moves = 0;
-        top = 0;
+        top = pref.getInt("top"+gamesize,0);
 
         numberOfMoves = (TextView) findViewById(R.id.countMoves);
         numberOfMoves.setText("Moves\n"+moves);

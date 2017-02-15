@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -34,6 +35,8 @@ public class GameBoard extends GridLayout {
     private int top;
     private TextView topScore;*/
     private Game game;
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
 
     int inversions;
 
@@ -153,7 +156,7 @@ public class GameBoard extends GridLayout {
             this.game.countMove();
             if(checkWinner()){
                 AlertDialog.Builder builder = new AlertDialog.Builder(game);
-                builder.setMessage("You completed the game in "+game.getMoves()+" moves");
+                builder.setMessage("You completed the game in "+game.getMoves()+" moves.");
                 builder.setTitle("You win!");
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -161,10 +164,13 @@ public class GameBoard extends GridLayout {
                     }
                 });
                 AlertDialog dialog = builder.create();
+                pref = context.getSharedPreferences("se.deltazulu.www.slidepuzzle", Context.MODE_PRIVATE);
+                editor = pref.edit();
+                editor.putInt("top"+gamezize,game.getMoves());
+                editor.commit();
                 dialog.show();
-                Log.d("win","1");
             }else{
-                Log.d("win","0");
+                
             }
         }else{
 
