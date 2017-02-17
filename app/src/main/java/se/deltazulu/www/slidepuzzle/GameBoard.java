@@ -76,17 +76,27 @@ public class GameBoard extends GridLayout {
 
     private boolean isWinnable(){
         inversions = 0;
+        int emptyTileRow = 1;
+        int row = 0;
         for(int i = 0; i < tiles.size(); i++){
+            if(i%gamezize == 0){
+                row++;
+            }
+            if(tiles.get(i).getEmpty()){
+                if(row%2 == 0){
+                    emptyTileRow = row;
+                }
+            }
             for(int j = i+1; j < tiles.size(); j++) {
                 if (tiles.get(i).getId() > tiles.get(j).getId() && !tiles.get(i).getEmpty() && !tiles.get(j).getEmpty()) {
                     inversions++;
                 }
             }
         }
-        if(inversions%2 == 1){
-            return false;
-        }else{
+        if((gamezize%2 == 1 && inversions%2 == 0) || ((gamezize%2 == 0)&&((emptyTileRow%2 == 0) && inversions%2 == 0))){
             return true;
+        }else{
+            return false;
         }
     }
 

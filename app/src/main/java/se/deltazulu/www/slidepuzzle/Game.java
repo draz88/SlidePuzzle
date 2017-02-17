@@ -27,6 +27,7 @@ public class Game extends AppCompatActivity {
     SharedPreferences.Editor editor;
     LinearLayout linear;
     Intent intent;
+    GameBoard board;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +42,7 @@ public class Game extends AppCompatActivity {
 
         pref = this.getSharedPreferences("se.deltazulu.www.slidepuzzle", Context.MODE_PRIVATE);
         editor = pref.edit();
-
-
+        
         moves = 0;
         top = pref.getInt("top"+gamesize,0);
 
@@ -52,7 +52,7 @@ public class Game extends AppCompatActivity {
         topScore = (TextView) findViewById(R.id.topScore);
         topScore.setText("Top score\n"+top);
 
-        GameBoard board = new GameBoard(this, gamesize, this);
+        board = new GameBoard(this, gamesize, this);
 
         linear.addView(board);
 
@@ -77,10 +77,10 @@ public class Game extends AppCompatActivity {
             }
         });
         AlertDialog dialog = builder.create();
-        if(this.top > this.moves) {
+        if(this.top == 0 || this.top > this.moves) {
             editor = pref.edit();
-            editor.putInt("top" + this.gamesize, this.moves);
-            editor.commit();
+            editor.putInt("top"+this.gamesize, this.moves);
+            editor.apply();
         }
         dialog.show();
     }
