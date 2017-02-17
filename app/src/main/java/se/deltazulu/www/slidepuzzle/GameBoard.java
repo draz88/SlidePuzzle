@@ -55,15 +55,43 @@ public class GameBoard extends GridLayout {
     }
 
     private void createTiles(){
+        String tileBackgroundColor;
+        boolean even = false;
+        boolean reverse = false;
         for(int i = 1; i <= gamezize*gamezize; i++){
+            if(even){
+                if(reverse) {
+                    tileBackgroundColor = "#FFFFFF";
+                }else{
+                    tileBackgroundColor = "#99CCCC";
+                }
+            }else {
+                if (reverse) {
+                    tileBackgroundColor = "#99CCCC";
+                }else{
+                    tileBackgroundColor = "#FFFFFF";
+                }
+            }
             Tile tile = new Tile(this.context, this, gamezize);
             tile.setId(+i);
-            tile.setImage(getResources().getIdentifier("btn"+i,"drawable",context.getPackageName()));
+            tile.setImage(getResources().getIdentifier("btn"+i,"drawable",context.getPackageName()), tileBackgroundColor);
             if(i == gamezize*gamezize){
                 tile.setEmpty(true);
             }
             tiles.add(tile);
             correctOrder.add(tile);
+            if(even){
+                even = false;
+            }else{
+                even = true;
+            }
+            if(gamezize%2 == 0 && i%gamezize == 0){
+                if(reverse){
+                    reverse = false;
+                }else {
+                    reverse = true;
+                }
+            }
         }
     }
 

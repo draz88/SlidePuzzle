@@ -60,11 +60,11 @@ public class Tile extends ImageButton {
         this.tileHeight = tileSize;
     }
 
-    public void setImage(int imgId){
+    public void setImage(int imgId, String bg){
         this.imgId = imgId;
         this.setImageResource(imgId);
         this.setScaleType(Tile.ScaleType.FIT_CENTER);
-        this.setBackgroundColor(Color.TRANSPARENT);
+        this.setBackgroundColor(Color.parseColor(bg));
     }
 
     public void setRow(int row) {
