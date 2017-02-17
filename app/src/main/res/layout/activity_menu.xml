@@ -10,18 +10,31 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="se.deltazulu.www.slidepuzzle.Menu">
 
-    <Button
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/btn_3x3"
-    android:text="3x3"
-    android:onClick="startGame"
-    android:padding="30dp"
-    android:tag="3"/>
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/n_puzzle"
+        android:id="@+id/logo"
+        android:layout_centerHorizontal="true"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="200px"
+        android:src="@drawable/menu3x3"
+        android:background="@android:color/transparent"
+        android:scaleType="centerCrop"
+        android:id="@+id/btn_3x3"
+        android:onClick="startGame"
+        android:padding="30dp"
+        android:tag="3"
+        android:layout_below="@id/logo"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="200px"
+        android:src="@drawable/menu4x4"
+        android:background="@android:color/transparent"
+        android:scaleType="centerCrop"
         android:id="@+id/btn_4x4"
         android:text="4x4"
         android:onClick="startGame"
@@ -29,9 +42,12 @@
         android:tag="4"
         android:layout_below="@id/btn_3x3"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="200px"
+        android:src="@drawable/menu5x5"
+        android:background="@android:color/transparent"
+        android:scaleType="centerCrop"
         android:id="@+id/btn_5x5"
         android:text="5x5"
         android:onClick="startGame"
