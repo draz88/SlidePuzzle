@@ -6,6 +6,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -48,6 +51,13 @@ public class GameBoard extends GridLayout {
         this.setColumnCount(gamezize);
         this.setRowCount(gamezize+1);
         this.setBackgroundColor(Color.TRANSPARENT);
+/*        ShapeDrawable border = new ShapeDrawable();
+        border.setShape(new RectShape());
+        border.getPaint().setColor(Color.RED);
+        border.getPaint().setStrokeWidth(20);
+        border.getPaint().setStyle(Paint.Style.STROKE);
+        this.setBackground(border);
+        this.setPadding(0,10,0,10);*/
         grid = new Tile[gamezize][gamezize];
         createTiles();
         shuffleTiles();

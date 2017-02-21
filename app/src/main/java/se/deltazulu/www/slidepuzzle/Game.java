@@ -5,15 +5,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.ActionBar;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutCompat;
-import android.util.Log;
 import android.view.ViewGroup;
-import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class Game extends AppCompatActivity {
@@ -28,6 +25,7 @@ public class Game extends AppCompatActivity {
     LinearLayout linear;
     Intent intent;
     GameBoard board;
+    ImageView border;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +52,25 @@ public class Game extends AppCompatActivity {
 
         board = new GameBoard(this, gamesize, this);
 
+        border = new ImageView(this);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.height = 20;
+        params.width = LinearLayout.LayoutParams.MATCH_PARENT;
+
+        border.setLayoutParams(params);
+        border.setBackgroundColor(Color.parseColor("#009999"));
+        linear.addView(border);
+
         linear.addView(board);
+
+        border = new ImageView(this);
+        border.setLayoutParams(params);
+        border.setBackgroundColor(Color.parseColor("#009999"));
+        linear.addView(border);
+
+        //GameTimer gameTimer = new GameTimer(this);
+        //linear.addView(gameTimer);
+
 
     }
 
